@@ -1,3 +1,5 @@
+// link: https://leetcode.com/problems/number-of-islands/
+
 // idea
 // connection btw piece of land is only in horizontal and vertical directions and not in diagonal
 // '0' represents water and '1' represents land
