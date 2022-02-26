@@ -1,0 +1,52 @@
+// idea
+// connection btw piece of land is only in horizontal and vertical directions and not in diagonal
+// '0' represents water and '1' represents land
+
+// start traversing each cell of the grid
+// when u see '1' at particular cell, then we will call recursive function to move in all 4-directions
+// let's say recursive function is FindIslands
+	// here we will check boundary cases
+	// if ith and jth index crosses the grid, then return 0
+	// if value of cell is '0' means water, then return 0
+	// else mark current cell as '0'
+	// call in all 4 directions by passing (i+1,j),(i-1,j),(i,j+1),(i,j-1) respectively
+	// if we are able to traverse in all 4-directions, then retun 1
+// when we come back to main function 
+// increment no_of_island count by returned integer
+// at last return no_of_island
+
+class Solution 
+{
+    public int findIslands(int i,int j,char[][] grid)
+    {
+        if(i<0 || j<0 || 
+           i>=grid.length || j>=grid[0].length ||
+           grid[i][j]=='0')
+            return 0;
+        
+        grid[i][j]='0';
+        findIslands(i+1,j,grid);
+        findIslands(i-1,j,grid);
+        findIslands(i,j+1,grid);
+        findIslands(i,j-1,grid);
+        
+        return 1;
+    }
+    public int numIslands(char[][] grid) 
+    {
+        if(grid.length==0 || grid==null)
+            return 0;
+        int row=grid.length;
+        int col=grid[0].length;
+        int count=0;
+        for(int i=0;i<row;i++)
+        {
+            for(int j=0;j<col;j++)
+            {
+                if(grid[i][j]=='1')
+                     count+=findIslands(i,j,grid);
+            }
+        }
+        return count;
+    }
+}
