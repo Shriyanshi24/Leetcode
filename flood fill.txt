@@ -1,0 +1,43 @@
+link of ques: https://leetcode.com/problems/flood-fill/
+
+// idea
+// we want to color the same color adjacent cells from the given colored cell with the newcolor
+// take visited[][] array, so that no cells are visited twice
+// call function recursively
+// lets take recursive function is fillColors
+	// here check all boundary conditions
+	// if we cross the matrix, then return
+	// if color of current cell != color of given position, then return
+	// if cell is already visited, then return 
+	// else mark the cell as visited and color the cell by newcolor
+	// and call function to traverse in all 4-directions
+	// and at last return
+
+// return the original grid which will have some cells wih new colors
+
+class Solution 
+{
+    public void fillColors(int[][] image,int sr,int sc,int curr_color,int newColor,boolean[][] visited)
+    {
+        if(sr<0 || sc<0 || 
+           sr>=image.length || sc>=image[0].length || 
+           image[sr][sc]!=curr_color || visited[sr][sc]==true)
+            return;
+        
+        image[sr][sc]=newColor;
+        visited[sr][sc]=true;
+        fillColors(image,sr+1,sc,curr_color,newColor,visited);
+        fillColors(image,sr,sc+1,curr_color,newColor,visited);
+        fillColors(image,sr-1,sc,curr_color,newColor,visited);
+        fillColors(image,sr,sc-1,curr_color,newColor,visited);
+        return;
+    }
+    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) 
+    {
+        int row=image.length,col=image[0].length;
+        int curr_color=image[sr][sc];
+        boolean[][] visited=new boolean[row][col];
+        fillColors(image,sr,sc,curr_color,newColor,visited);
+        return image;
+    }
+}
